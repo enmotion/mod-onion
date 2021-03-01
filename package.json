@@ -1,0 +1,38 @@
+{
+  "name": "mod-onion",
+  "version": "0.0.1",
+  "description": "middleware structure",
+  "main": "./src/index.js",
+  "scripts": {
+    "build": "npx webpack",
+    "test": "npx webpack --watch"
+  },  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enmotion/mod-onion.git"
+  },
+  "keywords": [
+    "onion",
+    "middleware"
+  ],
+  "author": "enmotion",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enmotion/mod-onion/issues"
+  },
+  "homepage": "https://github.com/enmotion/mod-onion#readme",
+  "dependencies": {
+  },
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "mocha": "^8.2.1",
+    "terser-webpack-plugin": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
