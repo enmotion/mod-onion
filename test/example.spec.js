@@ -1,13 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2021-03-01 23:02:11
- * @LastEditTime: 2021-03-05 12:42:15
+ * @LastEditTime: 2021-03-05 13:08:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\test\example.spec.js
  */
 const Monion = require("../src/index.js")
 const MO1 = new Monion()
+
 MO1.use(async (ctx,next)=>{
   console.log(ctx,"1")
   ctx.name+=1

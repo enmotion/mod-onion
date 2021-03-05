@@ -1,11 +1,12 @@
 /*
  * @Author: enmotion
  * @Date: 2021-03-01 23:02:11
- * @LastEditTime: 2021-03-05 12:21:33
+ * @LastEditTime: 2021-03-05 13:33:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\src\index.js
  */
+"use strict";
 module.exports = function(pipes=[]){
     checkStack(pipes);
     var middleware=pipes;
