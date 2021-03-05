@@ -1,6 +1,6 @@
 {
   "name": "mod-onion",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "middleware structure",
   "main": "./src/index.js",
   "scripts": {
