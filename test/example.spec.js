@@ -1,61 +1,100 @@
 /*
  * @Author: your name
  * @Date: 2021-03-01 23:02:11
- * @LastEditTime: 2021-03-02 03:25:17
+ * @LastEditTime: 2021-03-05 12:30:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\test\example.spec.js
  */
 const Monion = require("../src/index.js")
-const monion1 = new Monion()
-const monion2 = new Monion()
-var m =12
-monion1.use(async (ctx,next)=>{
-    console.log(ctx,'11')
-    await next()
-    console.log(ctx,'11')
+const MO1 = new Monion()
+MO1.use(async (ctx,next)=>{
+  console.log(ctx,"1")
+  ctx.name+=1
+  await next()
+  ctx.name-=1
+  console.log(ctx,"1")
 })
-monion1.use(async (ctx,next)=>{
-    return new Promise((res,rej)=>{
-        setTimeout(async function(){
-            console.log(ctx,'12')
-            ctx.name+=m
-            await next()
-            console.log(ctx,'12')
-            res(ctx)
-        },2000)
-    })
+MO1.use(async (ctx,next)=>{
+  console.log(ctx,"2")
+  ctx.name+=1
+  await next()
+  ctx.name-=1
+  console.log(ctx,"2")
 })
-monion1.use(async (ctx)=>{
-    console.log(ctx,'13')
-    ctx.name+=1
-    console.log(ctx,'13')
+MO1.use((ctx,next)=>{
+  return new Promise((resolve,reject)=>{
+    setTimeout(async ()=>{
+      console.log(ctx,"3")
+      ctx.name+=1
+      await next()
+      ctx.name-=1
+      console.log(ctx,"3")
+      resolve(ctx)
+    },2000)   
+  })  
+})
+MO1.use((ctx,next)=>{
+  return new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      console.log(ctx,"4")
+      ctx.name+=1
+      next()
+      ctx.name-=1
+      console.log(ctx,"4")
+      resolve(ctx)
+    },5000)   
+  })  
 })
 
-monion2.use(async (ctx,next)=>{
-    console.log(ctx,'21')
-    next()
-    console.log(ctx,'21')
+
+
+MO1.pipingData({name:1})
+.then(
+  value=>{
+    console.log("END:value",value)
+  }
+)
+.catch(err=>{
+  console.log("END:error", err.message)
 })
-monion2.use(async (ctx,next)=>{
-    console.log(ctx,'22')
-    ctx.name-=m
-    next()
-    console.log(ctx,'22')
-})
-monion2.use(async (ctx)=>{
-    console.log(ctx,'23')
-    ctx.name-=1
-    console.log(ctx,'23')
-})
-var data = {name:0}
-async function aaa(){
-    const m = await monion1.pipeData(data)
-    
-    console.log(m,3333)
-}
-// console.log(monion1.package(data),3333)
-aaa()
-console.log("----------------------------------------")
-monion2.pipeData(222)
+
+
+// MO1.use((ctx,next)=>{
+//   return new Promise((resolve,reject)=>{
+//     setTimeout(async ()=>{
+//       console.log(ctx,"1")
+//       ctx.name+=1
+//       await next()
+//       ctx.name-=1
+//       console.log(ctx,"1")
+//       resolve(ctx)
+//     },2000)
+//   })
+// })
+// MO1.use((ctx,next)=>{
+//   return new Promise((resolve,reject)=>{
+//     setTimeout(async ()=>{
+//       console.log(ctx,"2")
+//       ctx.name+=1
+//       d
+//       await next()
+//       ctx.name-=1
+//       console.log(ctx,"2")
+//       resolve(ctx)
+//     },2000)
+//   })
+// })
+// MO1.use((ctx,next)=>{
+//   return new Promise((resolve,reject)=>{
+//     setTimeout(async ()=>{
+//       console.log(ctx,"3")
+//       ctx.name+=1
+//       await next()
+//       ctx.name-=1
+//       console.log(ctx,"3")
+//       resolve(ctx)
+//     },2000)
+//   })
+// })
 // console.log

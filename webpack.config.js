@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-03-01 23:04:27
- * @LastEditTime: 2021-03-02 00:48:27
- * @LastEditors: your name
+ * @LastEditTime: 2021-03-05 11:48:25
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\webpack.config.js
  */
@@ -39,7 +39,6 @@ module.exports = {
         })],
     },
     devtool: "source-map",
-    cacheBusting: true,
     devServer: {        
         hot: true
     },    

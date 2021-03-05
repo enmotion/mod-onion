@@ -1,20 +1,23 @@
 /*
  * @Author: enmotion
  * @Date: 2021-03-01 23:02:11
- * @LastEditTime: 2021-03-05 12:21:33
+ * @LastEditTime: 2021-03-05 11:47:57
  * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
+ * @Description: easy way to build pipe to deal with data
  * @FilePath: \mod-onion\src\index.js
- */
+ */ 
 module.exports = function(pipes=[]){
+    // 核查pipes是否正确
     checkStack(pipes);
     var middleware=pipes;
+    // 检查方法
     function checkStack(middleware){
         if (!Array.isArray(middleware)) throw new TypeError('Middleware stack must be an array!')
         for (const fn of middleware) {
             if (typeof fn !== 'function') throw new TypeError('Middleware must be composed of functions!')
         }
     }
+    // 组合管道
     function compose (middleware) {
         checkStack(middleware)
         return function (context, next) {
@@ -28,27 +31,21 @@ module.exports = function(pipes=[]){
                 if (i === middleware.length) fn = next
                 if (!fn) return Promise.resolve()
                 try {
-                    // return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
-                    return new Promise(async (resolve,reject)=>{
-                        try{
-                            await fn(context, dispatch.bind(null, i + 1))
-                            resolve(context)
-                        }catch(err){
-                            reject(err)
-                        }                        
-                    })
+                    return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
                 } catch (err) {
                     return Promise.reject(err)
                 }
             }
         }
     }   
+    //拼接管道
     function use(fn){
         if (typeof fn !== 'function') throw new TypeError('onion use param must be a function!');
         middleware.push(fn);
-    }    
-    function pipingData(data,tempMiddleware){
-        return compose(tempMiddleware||middleware)(data);
+    }
+    async function pipingData(data,pipes){
+        if (data.constructor !== Object) throw new TypeError('onion pipeData param must be a Object!');
+        return compose(pipes)(data)       
     }
     Object.defineProperties(this,{
         $middleware:{writable:false,configurable:false,enumerable:false,value:middleware},//中间件数组
