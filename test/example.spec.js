@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-01 23:02:11
- * @LastEditTime: 2021-03-05 13:08:28
+ * @LastEditTime: 2021-03-05 15:38:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\test\example.spec.js
@@ -65,7 +65,6 @@ MO1.pipingData({name:1001,age:1},[
     ctx.age+=1
     await next()
     ctx.age-=1
-    console.log(ctx,"1")
     console.log("---------------------------")
   },
   (ctx,next)=>{
@@ -77,7 +76,7 @@ MO1.pipingData({name:1001,age:1},[
         await next()
         ctx.age-=1
         console.log(ctx,"2")
-        resolve(ctx)
+        resolve()
       },2000)   
     })  
   },
