@@ -1,104 +1,51 @@
-/*
- * @Author: your name
- * @Date: 2021-03-01 23:02:11
- * @LastEditTime: 2021-03-05 15:38:54
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \mod-onion\test\example.spec.js
- */
-const Monion = require("../src/index.js")
-const MO1 = new Monion()
+import ModOnion from "../src/index.js";
+const middlewares=[
+    async (ctx,next)=>{
+        console.log("1");
+        ctx.age+=1;
+        await next();
+        console.log("1")
+    },
+    async (ctx,next)=>{
+        console.log("2");
+        ctx.age+=1;
+        await next();
+        console.log("2")
+    },
+    async (ctx,next)=>{
+        console.log("3");
+        ctx.age+=1;
+        await next();        
+        console.log("3")
+    },
+    async (ctx,next)=>{
+        console.log("4");
+        ctx.age+=1;
+        console.log("4")
+    }
+]
+const M01 = new ModOnion(middlewares)
+M01.pipingData({name:"mod",age:0}).then(value=>console.log("V:",value)).catch(err=>{console.log(err)})
+// function compose(middleware){
+//     return function (context, next) {
+//         // last called middleware #
+//         let index = -1
+//         return dispatch(0)
+//         function dispatch (i) {
+//             if (i <= index){
+//                 return Promise.reject(new Error('next() called multiple times'))
+//             } 
+//             index = i
+//             let func = middleware[i]
+//             if (!func) return Promise.resolve()
+//             try{
+//                 return Promise.resolve(func(context, dispatch.bind(null, i + 1)));
+//             }catch(err){
+//                 return Promise.reject(err);
+//             }
+//         }
+//     }
+// }
 
-MO1.use(async (ctx,next)=>{
-  console.log(ctx,"1")
-  ctx.name+=1
-  await next()
-  ctx.name-=1
-  console.log(ctx,"1")
-})
-MO1.use(async (ctx,next)=>{
-  console.log(ctx,"2")
-  ctx.name+=1
-  await next()
-  ctx.name-=1
-  console.log(ctx,"2")
-})
-MO1.use((ctx,next)=>{
-  return new Promise((resolve,reject)=>{
-    setTimeout(async ()=>{
-      console.log(ctx,"3")
-      ctx.name+=1
-      await next()
-      ctx.name-=1
-      console.log(ctx,"3")
-      resolve(ctx)
-    },2000)   
-  })  
-})
-MO1.use((ctx,next)=>{
-  return new Promise((resolve,reject)=>{
-    setTimeout(()=>{
-      console.log(ctx,"4")
-      ctx.name+=1
-      next()
-      ctx.name-=1
-      console.log(ctx,"4")
-      resolve(ctx)
-    },1000)   
-  })  
-})
-
-// MO1.pipingData({name:1})
-// .then(
-//   value=>{
-//     console.log("END:value",value)
-//   }
-// )
-// .catch(err=>{
-//   console.log("END:error", err.message)
-// })
-MO1.pipingData({name:1001,age:1},[
-  async (ctx,next)=>{
-    console.log("---------------------------")
-    console.log(ctx,"1")
-    ctx.name+=1
-    ctx.age+=1
-    await next()
-    ctx.age-=1
-    console.log("---------------------------")
-  },
-  (ctx,next)=>{
-    return new Promise((resolve,reject)=>{
-      setTimeout(async ()=>{
-        console.log(ctx,"2")
-        ctx.name+=1
-        ctx.age+=1
-        await next()
-        ctx.age-=1
-        console.log(ctx,"2")
-        resolve()
-      },2000)   
-    })  
-  },
-  (ctx,next)=>{
-    return new Promise((resolve,reject)=>{
-      setTimeout(async ()=>{
-        console.log(ctx,"3")
-        ctx.name+=1
-        ctx.age+=1
-        await next()
-        ctx.age-=1
-        console.log(ctx,"3")
-        resolve(ctx)
-      },2000)   
-    })  
-  }
-])
-.then(
-  value=>{
-    console.log("END:value",value)
-  }
-)
-.catch(err=>{
-  console.log("END:error", err.message)
-})
+// var pipe = compose(middlewares);
+// pipe({name:1}).then().catch(err=>console.log(err.message))

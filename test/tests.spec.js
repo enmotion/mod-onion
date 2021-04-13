@@ -1,11 +1,12 @@
 /*
  * @Author: enmotion
  * @Date: 2021-03-05 11:45:50
- * @LastEditTime: 2021-03-05 13:58:02
+ * @LastEditTime: 2021-04-14 02:27:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\test\tests.spec.js
  */
+mocha.setup('bdd');
 import ModOnion from "../src"
 var assert = require ('assert');
 describe('mod-onion 测试',function(){    
@@ -34,14 +35,14 @@ describe('mod-onion 测试',function(){
             return MO.pipingData(data,[
                 (ctx,next)=>{
                     ctx.name+=1
-                    s
+                    s,
                     next()
                     ctx.name+=1
                 },
                 (ctx,next)=>{
                     ctx.name+=1
                     next()
-                },
+                }, 
             ]).then(value=>{
                 
             }).catch(err=>{
@@ -84,16 +85,21 @@ describe('mod-onion 测试',function(){
                 (ctx,next)=>{
                     return new Promise((resolve,reject)=>{
                         setTimeout(()=>{
-                            ctx.name+=1                            
-                            next()
-                            resolve(ctx)
+                            try{
+                                ctx.name+=1                        
+                                next()
+                                s
+                                resolve(ctx)
+                            }catch(err){
+                                reject(err)
+                            }                            
                         },2000)                        
                     })   
                 },
             ]).then(value=>{
-                assert.equal(value,{name:24})
+                assert.deepEqual(value,{name:4})
             }).catch(err=>{
-                assert.equal(1,1)
+                assert.equal(err.message,'s is not defined')
             })           
         })   
     })
@@ -107,3 +113,4 @@ function runDelay(done, f ) {
         done(e);
     }
 }
+mocha.run();
