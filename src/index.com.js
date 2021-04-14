@@ -1,7 +1,7 @@
 /*
  * @Author: enmotion
  * @Date: 2021-03-01 23:02:11
- * @LastEditTime: 2021-04-14 20:26:04
+ * @LastEditTime: 2021-04-14 20:36:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\src\index.js
@@ -60,4 +60,4 @@ const ModOnion=function($middleware){
     })
 }
 
-export default ModOnion;
+export default ModOnion
