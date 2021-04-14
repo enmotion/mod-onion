@@ -1,13 +1,15 @@
 /*
  * @Author: enmotion
  * @Date: 2021-03-05 11:45:50
- * @LastEditTime: 2021-04-14 03:46:08
+ * @LastEditTime: 2021-04-14 20:26:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\test\tests.spec.js
  */
 mocha.setup('bdd');
-import ModOnion from "../src"
+// import ModOnion from "../src/"
+import ModOnion from "../src/index.com"
+
 var assert = require ('assert');
 describe('mod-onion 测试',function(){    
     describe("同步管道测试",function(){

@@ -1,7 +1,7 @@
 /*
  * @Author: enmotion
  * @Date: 2021-03-01 23:02:11
- * @LastEditTime: 2021-04-14 01:37:22
+ * @LastEditTime: 2021-04-14 19:45:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\src\index.js
@@ -57,31 +57,7 @@ class ModOnion{
                     return Promise.reject(err);
                 }
             }
-        };
-        // return function (context, next) {
-        //     let index = -1
-        //     return dispatch(0)
-        //     function dispatch (i) {
-        //         if (i <= index) return Promise.reject(new Error('next() called multiple times'))
-        //         index = i
-        //         let fn = $middleware[i]
-        //         if (i === $middleware.length) fn = next
-        //         if (!fn) return Promise.resolve()
-        //         try {
-        //             // return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
-        //             return new Promise(async (resolve,reject)=>{
-        //                 try{
-        //                     await fn(context, dispatch.bind(null, i + 1));
-        //                     resolve(context)
-        //                 }catch(err){
-        //                     reject(err)
-        //                 }                        
-        //             })
-        //         } catch (err) {
-        //             return Promise.reject(err)
-        //         }
-        //     }
-        // }
+        };       
     }    
     use(func){
         if (typeof func !== 'function'){
