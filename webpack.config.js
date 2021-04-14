@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-01 23:04:27
- * @LastEditTime: 2021-04-14 20:11:40
+ * @LastEditTime: 2021-04-14 20:54:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \mod-onion\webpack.config.js
@@ -13,7 +13,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: {
-        main:"./src/index.com.js",
+        main:"./src/index.js",
         example:"./test/example.spec.js",
         unitTest:"./test/tests.spec.js",
     },
@@ -57,15 +57,15 @@ module.exports = {
             extractComments: true,
         })],
     },
-    // module:{
-    //     rules:[            
-    //         {
-    //             test: /\.js$/,
-    //             exclude: /node_modules/, 
-    //             loader: "babel-loader"
-    //         }
-    //     ]
-    // },
+    module:{
+        rules:[            
+            {
+                test: /\.js$/,
+                exclude: /node_modules/, 
+                loader: "babel-loader"
+            }
+        ]
+    },
     devtool: "source-map",
     devServer: {        
         hot: true

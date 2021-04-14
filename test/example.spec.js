@@ -1,4 +1,4 @@
-// import ModOnion from "../src/index.js";
+// import ModOnion from "../src/"
 import ModOnion from "../src/index.com"
 const middlewares=[
     async (ctx,next)=>{
